@@ -3,1758 +3,804 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Barbearia premium: corte, barba e grooming com agendamento rápido no WhatsApp." />
-  <title>Barbearia Premium | Corte & Barba</title>
+  <meta name="description" content="Agende corte e barba no WhatsApp. Atendimento premium, rápido e sem complicação." />
+  <title>Barbearia Premium | Agende no WhatsApp</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,650;9..144,720&display=swap" rel="stylesheet" />
 
   <style>
-    :root{
-      --bg0:#06070a;
-      --bg1:#0b0d12;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.12);
-      --stroke2: rgba(255,255,255,.18);
-      --text:#e9edf6;
-      --muted: rgba(233,237,246,.72);
-      --muted2: rgba(233,237,246,.58);
-      --accent:#25D366;
-      --accent2:#19b85a;
-      --accentGlow: rgba(37,211,102,.25);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --shadow2: 0 10px 35px rgba(0,0,0,.35);
-      --radius-xl: 28px;
-      --radius-lg: 20px;
-      --radius-md: 14px;
-      --radius-sm: 12px;
-      --container: 1120px;
-      --focus: 0 0 0 4px rgba(37,211,102,.22);
+    :root {
+      --bg0: #050608;
+      --bg1: #0a0c10;
+      --text: #eef1f8;
+      --muted: rgba(238, 241, 248, 0.68);
+      --muted2: rgba(238, 241, 248, 0.5);
+      --wa: #25d366;
+      --wa-dark: #1ea952;
+      --stroke: rgba(255, 255, 255, 0.1);
+      --card: rgba(255, 255, 255, 0.045);
+      --focus: 0 0 0 3px rgba(37, 211, 102, 0.35);
+      --container: 640px;
+      --section-y: clamp(2.75rem, 9vw, 4.25rem);
+      --tap-min: 52px;
+      --radius: 18px;
+      --radius-lg: 24px;
     }
 
-    *{ box-sizing:border-box; }
-    html, body { height:100%; }
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text);
       background:
-        radial-gradient(1200px 900px at 10% -10%, rgba(37,211,102,.14), transparent 55%),
-        radial-gradient(900px 700px at 90% 0%, rgba(124,58,237,.10), transparent 55%),
-        radial-gradient(900px 600px at 60% 75%, rgba(37,211,102,.08), transparent 55%),
+        radial-gradient(900px 520px at 15% -8%, rgba(37, 211, 102, 0.12), transparent 55%),
+        radial-gradient(580px 400px at 95% 15%, rgba(99, 102, 241, 0.08), transparent 50%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
+      overflow-x: hidden;
     }
 
-    a{ color:inherit; text-decoration:none; }
-    img{ max-width:100%; display:block; }
-    button, input, select{ font:inherit; }
-    .sr-only{
-      position:absolute !important;
-      width:1px; height:1px;
-      padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0);
-      border:0;
-      white-space:nowrap;
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0);
+      border: 0; white-space: nowrap;
     }
 
-    :focus-visible{
-      outline:none;
+    :focus-visible {
+      outline: none;
       box-shadow: var(--focus);
-      border-color: rgba(37,211,102,.45) !important;
     }
 
-    .container{
+    .container {
       width: min(var(--container), 100%);
       margin: 0 auto;
-      padding: 0 18px;
+      padding: 0 20px;
     }
 
-    .topbar{
+    /* Topbar */
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 30;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      background: rgba(6,7,10,.55);
-      border-bottom: 1px solid rgba(255,255,255,.08);
+      z-index: 40;
+      background: rgba(5, 6, 8, 0.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--stroke);
     }
-    .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      padding: 12px 0;
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      max-width: min(var(--container), 100%);
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
     }
-
-    .brand{
-      display:flex; align-items:center; gap:10px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       min-width: 0;
     }
-    .brand-mark{
-      width: 38px; height: 38px;
+    .brand-mark {
+      width: 40px;
+      height: 40px;
       border-radius: 14px;
-      background:
-        radial-gradient(16px 16px at 30% 30%, rgba(255,255,255,.22), transparent 60%),
-        linear-gradient(135deg, rgba(37,211,102,.9), rgba(25,184,90,.35));
-      box-shadow: 0 14px 40px rgba(37,211,102,.18);
-      border: 1px solid rgba(255,255,255,.14);
-      display:flex; align-items:center; justify-content:center;
-      flex: 0 0 auto;
+      background: linear-gradient(145deg, rgba(37, 211, 102, 0.95), rgba(25, 150, 80, 0.45));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 12px 40px rgba(37, 211, 102, 0.2);
+      flex-shrink: 0;
     }
-    .brand-title{
-      display:flex; flex-direction:column;
-      line-height:1.05;
-      min-width: 0;
+    .brand-text strong {
+      display: block;
+      font-family: Fraunces, Georgia, serif;
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
     }
-    .brand-title strong{
-      font-family: Fraunces, serif;
-      font-weight: 700;
-      letter-spacing: .2px;
-      font-size: 14px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brand-title span{
+    .brand-text span {
+      display: none;
       font-size: 12px;
       color: var(--muted2);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+    }
+    @media (min-width: 380px) {
+      .brand-text span { display: block; }
     }
 
-    .top-actions{
-      display:flex; align-items:center; gap:10px;
-    }
-    .pill{
-      display:none;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      font-size: 13px;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-      white-space:nowrap;
-    }
-    .pill:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.22);
-      background: rgba(255,255,255,.06);
-    }
-
-    .btn{
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      padding: 12px 14px;
-      border-radius: 14px;
-      cursor:pointer;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      justify-content:center;
-      user-select:none;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.22);
-      background: rgba(255,255,255,.06);
-    }
-    .btn:active{ transform: translateY(0px); }
-
-    .btn-primary{
-      border-color: rgba(37,211,102,.30);
-      background: linear-gradient(180deg, rgba(37,211,102,.22), rgba(37,211,102,.10));
-      box-shadow: 0 16px 48px rgba(37,211,102,.18);
-    }
-    .btn-primary:hover{
-      border-color: rgba(37,211,102,.44);
-      background: linear-gradient(180deg, rgba(37,211,102,.28), rgba(37,211,102,.12));
-      box-shadow: 0 18px 60px rgba(37,211,102,.22);
-    }
-
-    .btn-ghost{
-      background: transparent;
-      border-color: rgba(255,255,255,.16);
-    }
-
-    .icon{
-      width: 18px; height: 18px;
-      display:inline-block;
-      flex: 0 0 auto;
-    }
-
-    header.hero{
-      padding: 26px 0 18px;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-      align-items:stretch;
-    }
-
-    .hero-copy{
-      border-radius: var(--radius-xl);
-      background:
-        radial-gradient(1200px 600px at 30% -10%, rgba(37,211,102,.18), transparent 45%),
-        radial-gradient(500px 250px at 100% 0%, rgba(255,255,255,.12), transparent 55%),
-        rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow2);
-      padding: 18px;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-copy::after{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background:
-        radial-gradient(500px 220px at 20% 0%, rgba(37,211,102,.16), transparent 55%),
-        radial-gradient(350px 160px at 90% 40%, rgba(124,58,237,.12), transparent 55%);
-      pointer-events:none;
-      opacity:.9;
-    }
-    .hero-copy > *{ position:relative; z-index:1; }
-
-    .badge-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-bottom: 14px;
-    }
-    .badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      font-size: 13px;
-      transition: transform .18s ease, border-color .18s ease;
-    }
-    .badge:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.2); }
-    .badge .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: rgba(37,211,102,.9);
-      box-shadow: 0 0 0 6px rgba(37,211,102,.16);
-    }
-
-    .headline{
-      font-family: Fraunces, serif;
-      font-weight: 700;
-      margin: 0 0 10px;
-      font-size: 34px;
-      letter-spacing: .2px;
-      line-height: 1.05;
-    }
-    .subhead{
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 14.8px;
-      line-height: 1.55;
-      max-width: 60ch;
-    }
-
-    .cta-row{
-      display:flex;
-      flex-direction:column;
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin-top: 12px;
+      min-height: var(--tap-min);
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    .cta-secondary{
-      display:flex;
-      gap: 12px;
-      align-items:center;
-      justify-content:space-between;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px dashed rgba(255,255,255,.18);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      font-size: 13px;
+    .btn:active { transform: scale(0.98); }
+    .btn-wa {
+      border-color: rgba(37, 211, 102, 0.35);
+      background: linear-gradient(180deg, rgba(37, 211, 102, 0.22), rgba(37, 211, 102, 0.08));
+      box-shadow: 0 14px 44px rgba(37, 211, 102, 0.22);
+      color: #fff;
     }
-
-    .hero-aside{
-      border-radius: var(--radius-xl);
-      background:
-        radial-gradient(700px 450px at 60% 0%, rgba(37,211,102,.18), transparent 52%),
-        rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-      position:relative;
-      min-height: 310px;
+    .btn-wa:hover {
+      border-color: rgba(37, 211, 102, 0.55);
+      box-shadow: 0 18px 50px rgba(37, 211, 102, 0.28);
     }
-
-    .hero-visual{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:stretch;
-      justify-content:center;
-      padding: 16px;
-    }
-
-    .visual-frame{
-      width: 100%;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(180px 120px at 20% 15%, rgba(255,255,255,.16), transparent 60%),
-        radial-gradient(220px 160px at 80% 30%, rgba(37,211,102,.18), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      overflow:hidden;
-      position:relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,.35);
-    }
-    .visual-frame::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        linear-gradient(120deg, rgba(37,211,102,.22), transparent 38%),
-        linear-gradient(0deg, rgba(0,0,0,.4), transparent 45%);
-      opacity:.85;
-      pointer-events:none;
-    }
-
-    .visual-inner{
-      position:relative;
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      padding: 14px;
-      gap:12px;
-    }
-
-    .hero-top-metrics{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
-    .metric{
-      flex: 1 1 120px;
-      padding: 12px 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      min-width: 120px;
-    }
-    .metric strong{
+    .btn-block { width: 100%; }
+    .btn-sm {
+      min-height: 44px;
+      padding: 10px 14px;
       font-size: 14px;
-      display:block;
     }
-    .metric span{
-      font-size: 12.5px;
-      color: var(--muted);
-      display:block;
-      margin-top: 4px;
-      line-height:1.3;
+    .icon-wa {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
     }
 
-    .visual-card{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.25);
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
+    /* Hero */
+    .hero {
+      padding: var(--section-y) 0;
+      position: relative;
     }
-    .visual-card .label{
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(420px, 90vw);
+      height: 280px;
+      background: radial-gradient(ellipse, rgba(37, 211, 102, 0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-kicker {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(37, 211, 102, 0.9);
+      margin: 0 0 14px;
+    }
+    .hero h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(2rem, 7.5vw, 2.65rem);
+      font-weight: 720;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin: 0 0 14px;
+    }
+    .hero-lead {
+      margin: 0 0 28px;
+      font-size: clamp(1rem, 4vw, 1.08rem);
       color: var(--muted);
-      font-size: 12.5px;
+      max-width: 36ch;
     }
-    .price-row{
-      display:flex;
-      align-items:baseline;
-      gap: 10px;
-      flex-wrap:wrap;
+    .hero-cta {
+      margin-bottom: 18px;
     }
-    .price{
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing:.2px;
-      font-family: Fraunces, serif;
-    }
-    .price-note{
-      color: var(--muted);
+    .hero-note {
       font-size: 13px;
+      color: var(--muted2);
+      margin: 0;
     }
 
-    .svg-wrap{
-      width: 52px; height: 52px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      display:flex; align-items:center; justify-content:center;
-      box-shadow: 0 18px 60px rgba(0,0,0,.22);
+    /* Sections */
+    section {
+      padding: var(--section-y) 0;
+      border-top: 1px solid var(--stroke);
+    }
+    .section-title {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(1.45rem, 5vw, 1.65rem);
+      font-weight: 650;
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .section-intro {
+      margin: 0 0 22px;
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 40ch;
     }
 
-    section{
-      padding: 20px 0;
+    /* Benefits */
+    .benefits-grid {
+      display: grid;
+      gap: 12px;
     }
-
-    .section-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
+    @media (min-width: 520px) {
+      .benefits-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .benefit {
+      display: flex;
       gap: 14px;
+      align-items: flex-start;
+      padding: 18px 16px;
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+    .benefit:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+    }
+    .benefit-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: rgba(37, 211, 102, 0.12);
+      border: 1px solid rgba(37, 211, 102, 0.22);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+    .benefit h3 {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .benefit p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* Services */
+    .services-grid {
+      display: grid;
+      gap: 14px;
+    }
+    .service-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      padding: 20px 18px;
+      display: grid;
+      gap: 14px;
+      transition: transform 0.22s ease, border-color 0.22s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    .service-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .service-head h3 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 650;
+    }
+    .service-meta {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(0, 0, 0, 0.2);
+      white-space: nowrap;
+    }
+    .service-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .service-card li { margin: 0 0 4px; }
+    .service-card li:last-child { margin-bottom: 0; }
+
+    /* Why */
+    .why-wrap {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 22px 18px;
+    }
+    .why-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 14px;
+    }
+    .why-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 15px;
+      color: var(--muted);
+    }
+    .why-list strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .check {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.28);
+      color: var(--wa);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* Mid CTA strip */
+    .cta-strip {
+      padding: 20px 0;
+      border-top: 1px solid var(--stroke);
+      border-bottom: 1px solid var(--stroke);
+      background: rgba(37, 211, 102, 0.06);
+    }
+    .cta-strip-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+    @media (min-width: 480px) {
+      .cta-strip-inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .cta-strip p {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .cta-strip span {
+      display: block;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Final */
+    .final {
+      padding-bottom: calc(var(--section-y) + 72px);
+    }
+    .final-card {
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background:
+        radial-gradient(500px 200px at 0% 0%, rgba(37, 211, 102, 0.15), transparent 60%),
+        rgba(255, 255, 255, 0.04);
+      padding: 24px 20px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    }
+    .final h2 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(1.5rem, 5vw, 1.75rem);
+      margin: 0 0 8px;
+    }
+    .final > .container > p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .form-stack {
+      display: grid;
+      gap: 12px;
       margin-bottom: 14px;
     }
-    .kicker{
-      color: rgba(37,211,102,.92);
+    label {
+      display: block;
+      font-size: 12px;
       font-weight: 600;
-      font-size: 12.5px;
-      letter-spacing:.12em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    h2{
-      margin:0;
-      font-family: Fraunces, serif;
-      letter-spacing:.2px;
-      font-size: 26px;
-      line-height:1.15;
-    }
-    .section-desc{
       color: var(--muted);
-      margin: 8px 0 0;
-      font-size: 14.5px;
-      line-height: 1.55;
-      max-width: 62ch;
+      margin-bottom: 6px;
     }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .grid-3{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .grid-4{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .card{
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      box-shadow: 0 12px 40px rgba(0,0,0,.25);
-      padding: 14px;
-      position:relative;
-      overflow:hidden;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
-    }
-    .card:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.05);
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
-
-    .card .title{
-      display:flex; align-items:center; gap:10px;
-      margin-bottom: 8px;
-    }
-    .card h3{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-    .card p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13.8px;
-      line-height:1.55;
-    }
-
-    .list{
-      margin: 12px 0 0;
-      padding: 0;
-      list-style:none;
-      display:flex;
-      flex-direction:column;
-      gap: 8px;
-    }
-    .list li{
-      display:flex; align-items:flex-start; gap:10px;
-      color: var(--muted);
-      font-size: 13.8px;
-      line-height:1.4;
-    }
-    .check{
-      width: 20px; height: 20px;
-      border-radius: 8px;
-      display:flex; align-items:center; justify-content:center;
-      border: 1px solid rgba(37,211,102,.35);
-      background: rgba(37,211,102,.10);
-      color: rgba(37,211,102,.95);
-      flex: 0 0 auto;
-      margin-top: 1px;
-    }
-
-    .service-card{
-      padding: 16px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      min-height: 220px;
-    }
-    .service-top{
-      display:flex; align-items:flex-start; justify-content:space-between; gap: 12px;
-    }
-    .service-chip{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      font-size: 12.5px;
-      white-space:nowrap;
-    }
-    .service-items{
-      display:flex;
-      flex-direction:column;
-      gap: 8px;
-    }
-    .service-items .item{
-      display:flex; align-items:flex-start; gap: 10px;
-      color: var(--muted);
-      font-size: 13.8px;
-      line-height:1.4;
-    }
-    .service-items .item svg{
-      width: 18px; height: 18px;
-      flex:0 0 auto;
-      color: rgba(37,211,102,.95);
-      margin-top: 1px;
-    }
-    .service-actions{
-      margin-top:auto;
-      display:flex;
-      gap: 10px;
-      flex-direction:column;
-    }
-
-    .plan-card{
-      padding: 16px;
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      min-height: 240px;
-    }
-    .plan-price{
-      display:flex;
-      align-items:baseline;
-      gap: 10px;
-      flex-wrap:wrap;
-    }
-    .plan-price strong{
-      font-family: Fraunces, serif;
-      font-size: 28px;
-      letter-spacing:.2px;
-    }
-    .plan-price span{
-      color: var(--muted);
-      font-size: 13.5px;
-    }
-    .plan-badge{
-      display:inline-flex; align-items:center; gap: 8px;
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(37,211,102,.28);
-      background: rgba(37,211,102,.08);
-      color: rgba(37,211,102,.98);
-      font-weight: 600;
-      font-size: 12.5px;
-      width: fit-content;
-    }
-
-    .gallery{
-      padding-top: 10px;
-    }
-    .gallery-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .shot{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      overflow:hidden;
-      position:relative;
-      min-height: 140px;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .shot:hover{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.18);
-      background: rgba(255,255,255,.05);
-    }
-    .shot::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(120px 90px at 20% 20%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(135deg, rgba(37,211,102,.20), rgba(124,58,237,.12));
-      opacity:.95;
-    }
-    .shot[data-variant="1"]::before{
-      background:
-        radial-gradient(160px 120px at 10% 10%, rgba(37,211,102,.24), transparent 60%),
-        linear-gradient(135deg, rgba(255,255,255,.10), rgba(37,211,102,.10));
-    }
-    .shot[data-variant="2"]::before{
-      background:
-        radial-gradient(160px 120px at 80% 20%, rgba(124,58,237,.22), transparent 60%),
-        linear-gradient(135deg, rgba(37,211,102,.12), rgba(255,255,255,.06));
-    }
-    .shot[data-variant="3"]::before{
-      background:
-        radial-gradient(160px 120px at 10% 90%, rgba(37,211,102,.20), transparent 60%),
-        linear-gradient(135deg, rgba(255,255,255,.07), rgba(124,58,237,.10));
-    }
-    .shot[data-variant="4"]::before{
-      background:
-        radial-gradient(160px 120px at 70% 70%, rgba(255,255,255,.16), transparent 60%),
-        linear-gradient(135deg, rgba(37,211,102,.16), rgba(37,211,102,.06));
-    }
-
-    .shot-inner{
-      position:relative;
-      height:100%;
-      padding: 14px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .shot-tag{
-      width: fit-content;
-      padding: 9px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      color: rgba(233,237,246,.86);
-      font-size: 12.5px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .shot-mark{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 12px;
-    }
-    .shot-mark strong{
-      font-family: Fraunces, serif;
-      font-size: 18px;
-      letter-spacing:.2px;
-      line-height:1.05;
-    }
-    .shot-mark span{
-      color: rgba(233,237,246,.7);
-      font-size: 12.8px;
-      line-height:1.3;
-      max-width: 16ch;
-    }
-
-    .final-cta{
-      padding: 16px 0 34px;
-    }
-    .cta-panel{
-      border-radius: 30px;
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(900px 420px at 10% 20%, rgba(37,211,102,.22), transparent 58%),
-        radial-gradient(650px 300px at 90% 0%, rgba(124,58,237,.14), transparent 55%),
-        rgba(255,255,255,.03);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-      padding: 16px;
-    }
-    .cta-panel::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background:
-        linear-gradient(120deg, rgba(37,211,102,.22), transparent 40%),
-        linear-gradient(0deg, rgba(0,0,0,.25), transparent 55%);
-      opacity:.85;
-      pointer-events:none;
-    }
-    .cta-panel > *{ position:relative; z-index:1; }
-
-    .cta-panel-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      align-items:start;
-    }
-    .cta-panel h3{
-      margin:0;
-      font-family: Fraunces, serif;
-      letter-spacing:.2px;
-      font-size: 24px;
-      line-height:1.15;
-    }
-    .cta-panel p{
-      margin: 10px 0 0;
-      color: var(--muted);
-      line-height:1.6;
-      font-size: 14.5px;
-    }
-
-    .form{
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
-      padding: 14px;
-    }
-    .form-row{
-      display:flex;
-      flex-direction:column;
-      gap: 10px;
-    }
-    .field{
-      display:flex; flex-direction:column; gap: 7px;
-    }
-    .field label{
-      font-size: 12.5px;
-      color: rgba(233,237,246,.8);
-    }
-    .input, select{
+    select, input[type="text"] {
       width: 100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
+      min-height: var(--tap-min);
+      padding: 14px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      background: rgba(0, 0, 0, 0.25);
       color: var(--text);
-      outline:none;
-      transition: border-color .18s ease, background .18s ease, transform .18s ease;
     }
-    select option{ background:#0a0c10; }
-    .helper{
+    select option { background: #111318; color: var(--text); }
+    .form-hint {
+      margin: 12px 0 0;
+      font-size: 12px;
       color: var(--muted2);
-      font-size: 12.5px;
-      line-height:1.45;
-      margin-top: 10px;
+      line-height: 1.4;
     }
 
-    .btn-block{ width:100%; }
-
-    footer{
-      padding: 18px 0 30px;
-      border-top: 1px solid rgba(255,255,255,.08);
-      background: rgba(0,0,0,.10);
+    /* Footer */
+    footer {
+      padding: 24px 0 100px;
+      border-top: 1px solid var(--stroke);
     }
-    .footer-inner{
-      display:flex;
-      flex-direction:column;
-      gap: 12px;
-      align-items:flex-start;
-      justify-content:space-between;
-    }
-    .footer-inner p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13.2px;
-      line-height:1.5;
-    }
-    .footer-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      color: var(--muted);
+    footer p {
+      margin: 0;
       font-size: 13px;
-    }
-    .footer-links a{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .footer-links a:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.2);
-      background: rgba(255,255,255,.05);
+      color: var(--muted2);
+      text-align: center;
     }
 
-    .wa-float{
+    /* Float */
+    .wa-float {
       position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 60;
-      width: 56px;
-      height: 56px;
+      right: max(16px, env(safe-area-inset-right));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      z-index: 50;
+      width: 60px;
+      height: 60px;
       border-radius: 999px;
-      border: 1px solid rgba(37,211,102,.35);
-      background: linear-gradient(180deg, rgba(37,211,102,.26), rgba(37,211,102,.12));
-      box-shadow: 0 22px 70px rgba(37,211,102,.22);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition: transform .18s ease, filter .18s ease, border-color .18s ease;
+      border: 1px solid rgba(37, 211, 102, 0.45);
+      background: linear-gradient(180deg, var(--wa), var(--wa-dark));
+      box-shadow: 0 16px 48px rgba(37, 211, 102, 0.35);
+      display: grid;
+      place-items: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    .wa-float:hover{
-      transform: translateY(-2px);
-      border-color: rgba(37,211,102,.5);
-      filter: brightness(1.06);
+    .wa-float:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 56px rgba(37, 211, 102, 0.42);
     }
-    .wa-float .wa-label{
-      position:absolute;
-      right: 64px;
-      bottom: 10px;
-      background: rgba(0,0,0,.55);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(233,237,246,.9);
-      padding: 10px 12px;
-      border-radius: 14px;
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-      font-size: 12.8px;
-      display:none;
-      white-space:nowrap;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .wa-float:hover .wa-label{ display:block; }
+    .wa-float:active { transform: scale(0.98); }
+    .wa-float svg { width: 30px; height: 30px; }
 
-    @media (min-width: 720px){
-      header.hero{ padding: 34px 0 20px; }
-      .hero-grid{
-        grid-template-columns: 1.05fr .95fr;
-        gap: 16px;
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
       }
-      .headline{ font-size: 44px; }
-      .cta-row{
-        flex-direction:row;
-        align-items:center;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      .cta-row .btn{ flex: 1; }
-      .pill{ display:inline-flex; }
-      .grid-2{ grid-template-columns: 1fr 1fr; }
-      .grid-3{ grid-template-columns: 1fr 1fr 1fr; }
-      .grid-4{ grid-template-columns: repeat(4, 1fr); }
-      .gallery-grid{ grid-template-columns: repeat(3, 1fr); }
-      .cta-panel-grid{
-        grid-template-columns: 1.1fr .9fr;
-        align-items:center;
+    }
+    .anim-hero > * {
+      opacity: 0;
+      animation: fadeUp 0.55s ease forwards;
+    }
+    .anim-hero .hero-kicker { animation-delay: 0.05s; }
+    .anim-hero h1 { animation-delay: 0.12s; }
+    .anim-hero .hero-lead { animation-delay: 0.2s; }
+    .anim-hero .hero-cta { animation-delay: 0.28s; }
+    .anim-hero .hero-note { animation-delay: 0.36s; }
+
+    section > .container > .section-title,
+    section > .container > .section-intro {
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+    section > .container > .section-intro { animation-delay: 0.06s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .anim-hero > *, section > .container > .section-title, section > .container > .section-intro {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
       }
-      .form-row{
-        flex-direction:row;
-        flex-wrap:wrap;
-        gap: 10px;
-      }
-      .field.name{ flex: 1 1 160px; }
-      .field.service{ flex: 1 1 220px; }
-      .field.sub{ flex: 1 1 140px; }
+      .btn, .benefit, .service-card, .wa-float { transition: none !important; }
     }
-
-    @media (min-width: 980px){
-      .container{ padding: 0 20px; }
-      h2{ font-size: 30px; }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ transition: none !important; scroll-behavior:auto !important; }
-    }
-
-    html{ scroll-behavior:smooth; }
-
   </style>
 </head>
-
 <body>
-  <div class="topbar" role="navigation" aria-label="Barra de navegação">
-    <div class="container topbar-inner">
-      <a class="brand" href="#inicio" aria-label="Ir para o início">
-        <div class="brand-mark" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 20l6-6" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
-            <path d="M14 10l6-6" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
-            <path d="M13 11l-2-2" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
-            <path d="M8 16l-2-2" stroke="rgba(255,255,255,.92)" stroke-width="2" stroke-linecap="round"/>
-            <path d="M15 3l6 6" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="brand-title">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="Ir ao início">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div class="brand-text">
           <strong>Barbearia Premium</strong>
-          <span>Corte, barba e grooming com agilidade</span>
+          <span>Corte · barba · WhatsApp</span>
         </div>
       </a>
-
-      <div class="top-actions">
-        <a class="pill" href="#servicos">Ver serviços</a>
-        <a class="btn btn-ghost" href="#agendar" aria-label="Ir para agendar">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M8 7h8M8 12h8M8 17h5" stroke="rgba(233,237,246,.92)" stroke-width="2" stroke-linecap="round"/>
-            <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="rgba(233,237,246,.32)" stroke-width="1.6"/>
-          </svg>
-          Agendar
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <header class="hero" id="inicio">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="badge-row" aria-label="Diferenciais">
-            <div class="badge">
-              <span class="dot" aria-hidden="true"></span>
-              <span>Atendimento rápido</span>
-            </div>
-            <div class="badge">
-              <span class="dot" aria-hidden="true"></span>
-              <span>Acabamento impecável</span>
-            </div>
-            <div class="badge">
-              <span class="dot" aria-hidden="true"></span>
-              <span>Agendamento fácil</span>
-            </div>
-          </div>
-
-          <h1 class="headline">Seu visual, com padrão premium.</h1>
-          <p class="subhead">
-            Corte na medida, barba alinhada e finalização cuidadosa. Um atendimento feito para você
-            sair confiante — e voltar quando precisar.
-          </p>
-
-          <div class="cta-row">
-            <a id="heroWhatsAppBtn" class="btn btn-primary btn-block" href="#" role="button" aria-label="Agendar no WhatsApp">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20.5 11.8a8.7 8.7 0 0 1-12.2 7.8L4 20l.4-4.3A8.7 8.7 0 1 1 20.5 11.8Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9.3 8.8c.3-.5.6-.5.9-.5.3 0 .6 0 .8.6.2.5.7 1.7.8 1.8.1.2.1.5 0 .7-.1.2-.2.3-.3.4-.1.1-.2.2-.1.4.1.2.4.8.9 1.3.6.6 1.2.9 1.4 1 .2.1.3.1.4 0 .1-.1.4-.4.6-.5.2-.1.4-.1.6 0 .2.1 1.4.7 1.6.8.2.1.4.2.5.3.1.1.1.6 0 1-.1.4-.5.8-1 .9-0.5.1-1.1.2-2.3-.3-1.2-.5-2.6-1.8-3.6-3.1-1-1.3-1.6-2.8-1.6-3.7 0-.9.5-1.6.7-1.8Z" fill="rgba(233,237,246,.82)"/>
-              </svg>
-              Agendar no WhatsApp
-            </a>
-
-            <a class="btn btn-ghost btn-block" href="#servicos" aria-label="Ver serviços e escolher">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 5v14" stroke="rgba(233,237,246,.92)" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6 9l6-6 6 6" stroke="rgba(37,211,102,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6 19h12" stroke="rgba(233,237,246,.32)" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Escolher serviço
-            </a>
-          </div>
-
-          <div class="cta-secondary" aria-label="Informações rápidas">
-            <span><strong style="color:rgba(233,237,246,.95)">Chegue pronto:</strong> você escolhe o serviço e nós confirmamos o melhor horário.</span>
-            <span style="color:rgba(37,211,102,.95); font-weight:700;">Leva menos de 1 minuto</span>
-          </div>
-        </div>
-
-        <aside class="hero-aside" aria-label="Destaque visual do atendimento">
-          <div class="hero-visual">
-            <div class="visual-frame">
-              <div class="visual-inner">
-                <div class="hero-top-metrics">
-                  <div class="metric">
-                    <strong>Atendimento</strong>
-                    <span>Organizado e pontual, do começo ao acabamento.</span>
-                  </div>
-                  <div class="metric">
-                    <strong>Detalhes</strong>
-                    <span>Barba alinhada e finalização para durar mais.</span>
-                  </div>
-                </div>
-
-                <div class="visual-card" aria-label="Destaque de valores e confiança">
-                  <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-                    <div class="svg-wrap" aria-hidden="true">
-                      <svg class="icon" viewBox="0 0 24 24" fill="none">
-                        <path d="M6 7h12" stroke="rgba(233,237,246,.85)" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M8 7l-2 14h12l-2-14" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M10 11h4" stroke="rgba(233,237,246,.6)" stroke-width="2" stroke-linecap="round"/>
-                      </svg>
-                    </div>
-                    <div class="service-chip">Acabamento premium</div>
-                  </div>
-
-                  <div class="label">Valores e promoções</div>
-                  <div class="price-row">
-                    <div class="price">A partir de R$ 60</div>
-                    <div class="price-note">Consulte no WhatsApp e garanta seu horário.</div>
-                  </div>
-
-                  <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                    <span class="service-chip">Corte masculino</span>
-                    <span class="service-chip">Barba</span>
-                    <span class="service-chip">Combo completo</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div>
+      <a class="btn btn-wa btn-sm" id="topbarWa" href="#">WhatsApp</a>
     </div>
   </header>
 
-  <section id="beneficios" aria-labelledby="beneficios-title">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Experiência de verdade</div>
-          <h2 id="beneficios-title">Mais conforto, mais resultado.</h2>
-          <p class="section-desc">
-            Você não quer “qualquer corte”. Quer um visual que valoriza e um atendimento que respeita seu tempo.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-4" role="list">
-        <div class="card" role="listitem">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M12 8v5l3 2" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="rgba(233,237,246,.35)" stroke-width="2"/>
-              </svg>
-            </div>
-            <h3>Atendimento rápido</h3>
-          </div>
-          <p>Agendamento organizado e atendimento fluido para você sair no tempo certo.</p>
-        </div>
-
-        <div class="card" role="listitem">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M7 12l3 3 7-7" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z" stroke="rgba(233,237,246,.35)" stroke-width="2"/>
-              </svg>
-            </div>
-            <h3>Atmosfera profissional</h3>
-          </div>
-          <p>Ambiente confortável, cuidado nos detalhes e padrão premium em cada sessão.</p>
-        </div>
-
-        <div class="card" role="listitem">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M4 7h16M6 12h12M8 17h8" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round"/>
-                <path d="M5 3h14a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="rgba(233,237,246,.35)" stroke-width="1.8"/>
-              </svg>
-            </div>
-            <h3>Agendamento fácil</h3>
-          </div>
-          <p>Você chama no WhatsApp, explica o que quer e nós confirmamos o melhor horário.</p>
-        </div>
-
-        <div class="card" role="listitem">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12l9-9 9 9-9 9-9-9Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M9.5 12l2.5 2.5L16.5 10" stroke="rgba(233,237,246,.75)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3>Qualidade no corte e barba</h3>
-          </div>
-          <p>Finalização caprichada para valorizar seu rosto e melhorar a durabilidade do visual.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="servicos" aria-labelledby="servicos-title">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Serviços</div>
-          <h2 id="servicos-title">Escolha o que você precisa hoje.</h2>
-          <p class="section-desc">
-            Corte, barba ou combo completo. Tudo com atenção aos detalhes e padrão consistente.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <article class="card service-card" aria-label="Serviço: Corte Masculino Premium">
-          <div class="service-top">
-            <div class="title">
-              <div class="svg-wrap" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M8 5l4 4-4 4" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M16 5l-4 4 4 4" stroke="rgba(233,237,246,.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M4 19h16" stroke="rgba(233,237,246,.25)" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3>Corte Masculino Premium</h3>
-            </div>
-            <div class="service-chip">~ 30 a 40 min</div>
-          </div>
-
-          <div class="service-items">
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Ajuste na medida do seu estilo
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Finalização para valorizar o caimento
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Orientação rápida para manter em casa
-            </div>
-          </div>
-
-          <div class="service-actions">
-            <a class="btn btn-primary" href="#" role="button"
-               data-wa-service="Corte Masculino Premium"
-               onclick="return false;">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20.5 11.8a8.7 8.7 0 0 1-12.2 7.8L4 20l.4-4.3A8.7 8.7 0 1 1 20.5 11.8Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Agendar este corte
-            </a>
-            <button class="btn btn-ghost" type="button"
-               data-wa-service="Corte Masculino Premium"
-               data-wa-open="true">
-              Confirmar disponibilidade
-            </button>
-          </div>
-        </article>
-
-        <article class="card service-card" aria-label="Serviço: Barba Premium">
-          <div class="service-top">
-            <div class="title">
-              <div class="svg-wrap" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M8 7c0-2 2-4 4-4s4 2 4 4v2c0 2-2 4-4 4s-4-2-4-4V7Z" stroke="rgba(233,237,246,.8)" stroke-width="2" stroke-linejoin="round"/>
-                  <path d="M6 20c1.5-4 3.5-5 6-5s4.5 1 6 5" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M9 12v2m6-2v2" stroke="rgba(233,237,246,.25)" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3>Barba Premium</h3>
-            </div>
-            <div class="service-chip">~ 25 a 35 min</div>
-          </div>
-
-          <div class="service-items">
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Modelagem e alinhamento no seu padrão
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Toalha quente e finalização
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Acabamento que dura mais
-            </div>
-          </div>
-
-          <div class="service-actions">
-            <a class="btn btn-primary" href="#" role="button"
-               data-wa-service="Barba Premium"
-               onclick="return false;">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20.5 11.8a8.7 8.7 0 0 1-12.2 7.8L4 20l.4-4.3A8.7 8.7 0 1 1 20.5 11.8Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Agendar este serviço
-            </a>
-            <button class="btn btn-ghost" type="button"
-               data-wa-service="Barba Premium"
-               data-wa-open="true">
-              Confirmar disponibilidade
-            </button>
-          </div>
-        </article>
-
-        <article class="card service-card" aria-label="Serviço: Grooming Completo">
-          <div class="service-top">
-            <div class="title">
-              <div class="svg-wrap" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linejoin="round"/>
-                  <path d="M4 21c3-2 13-2 16 0" stroke="rgba(233,237,246,.28)" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3>Grooming Completo</h3>
-            </div>
-            <div class="service-chip">~ 55 a 65 min</div>
-          </div>
-
-          <div class="service-items">
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Corte + barba com finalização premium
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Preparação para um resultado mais uniforme
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Visual pronto para qualquer ocasião
-            </div>
-          </div>
-
-          <div class="service-actions">
-            <a class="btn btn-primary" href="#" role="button"
-               data-wa-service="Grooming Completo"
-               onclick="return false;">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20.5 11.8a8.7 8.7 0 0 1-12.2 7.8L4 20l.4-4.3A8.7 8.7 0 1 1 20.5 11.8Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Agendar completo
-            </a>
-            <button class="btn btn-ghost" type="button"
-               data-wa-service="Grooming Completo"
-               data-wa-open="true">
-              Confirmar disponibilidade
-            </button>
-          </div>
-        </article>
-
-        <article class="card service-card" aria-label="Serviço: Combo Corte + Barba">
-          <div class="service-top">
-            <div class="title">
-              <div class="svg-wrap" aria-hidden="true">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M7 7h10v10H7V7Z" stroke="rgba(233,237,246,.32)" stroke-width="2"/>
-                  <path d="M4 12h16" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M12 4v16" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3>Combo: Corte + Barba</h3>
-            </div>
-            <div class="service-chip">~ 45 a 55 min</div>
-          </div>
-
-          <div class="service-items">
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Visual alinhado do cabelo à barba
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Finalização que valoriza seu formato
-            </div>
-            <div class="item">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Melhor custo-benefício do dia
-            </div>
-          </div>
-
-          <div class="service-actions">
-            <a class="btn btn-primary" href="#" role="button"
-               data-wa-service="Combo: Corte + Barba"
-               onclick="return false;">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20.5 11.8a8.7 8.7 0 0 1-12.2 7.8L4 20l.4-4.3A8.7 8.7 0 1 1 20.5 11.8Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              Agendar combo
-            </a>
-            <button class="btn btn-ghost" type="button"
-               data-wa-service="Combo: Corte + Barba"
-               data-wa-open="true">
-              Confirmar disponibilidade
-            </button>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="por-que" aria-labelledby="por-que-title">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Por que escolher</div>
-          <h2 id="por-que-title">Você sente a diferença na primeira visita.</h2>
-          <p class="section-desc">
-            Nosso foco é simples: serviço bem-feito, ambiente confortável e agendamento sem complicação.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <h3>Profissionais experientes</h3>
-          </div>
-          <p>O atendimento é feito com técnica e cuidado para o seu visual ficar do jeito certo.</p>
-          <ul class="list">
-            <li><span class="check" aria-hidden="true">✓</span> Análise do seu estilo e formato do rosto</li>
-            <li><span class="check" aria-hidden="true">✓</span> Acabamento consistente do começo ao fim</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M4 12l2-7h12l2 7-8 9-8-9Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M9 9h6" stroke="rgba(233,237,246,.5)" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Serviço premium</h3>
-          </div>
-          <p>Detalhes que fazem diferença: finalização, alinhamento e cuidado com o resultado final.</p>
-          <ul class="list">
-            <li><span class="check" aria-hidden="true">✓</span> Ajustes na medida do que você quer</li>
-            <li><span class="check" aria-hidden="true">✓</span> Visual que dura mais</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M7 10V6a5 5 0 0 1 10 0v4" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round"/>
-                <path d="M5 10h14v10H5V10Z" stroke="rgba(233,237,246,.32)" stroke-width="2"/>
-                <path d="M12 14v3" stroke="rgba(233,237,246,.6)" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>Ambiente confortável</h3>
-          </div>
-          <p>Um espaço que valoriza sua experiência: sem pressa, com atenção e organização.</p>
-          <ul class="list">
-            <li><span class="check" aria-hidden="true">✓</span> Atendimento tranquilo e acolhedor</li>
-            <li><span class="check" aria-hidden="true">✓</span> Higiênico e bem cuidado</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <div class="title">
-            <div class="svg-wrap" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-4.5 7-11a7 7 0 0 0-14 0c0 6.5 7 11 7 11Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M12 10.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke="rgba(233,237,246,.55)" stroke-width="2"/>
-              </svg>
-            </div>
-            <h3>Agendamento simples</h3>
-          </div>
-          <p>Você escolhe o serviço, chama no WhatsApp e nós retornamos com a melhor opção.</p>
-          <ul class="list">
-            <li><span class="check" aria-hidden="true">✓</span> Resposta rápida no WhatsApp</li>
-            <li><span class="check" aria-hidden="true">✓</span> Sem burocracia</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="planos" aria-labelledby="planos-title">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Planos</div>
-          <h2 id="planos-title">Assine e mantenha o padrão.</h2>
-          <p class="section-desc">
-            Para quem quer sempre estar pronto: sem correr atrás, com prioridade de agenda e consistência no resultado.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-3">
-        <article class="card plan-card" aria-label="Plano Mensal">
-          <div class="plan-badge">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <main id="top">
+    <div class="hero">
+      <div class="container hero-inner anim-hero">
+        <p class="hero-kicker">Agende em segundos</p>
+        <h1>Corte e barba com padrão premium.</h1>
+        <p class="hero-lead">Chama no WhatsApp, escolhe o horário e pronto — sem enrolação.</p>
+        <div class="hero-cta">
+          <a class="btn btn-wa btn-block" id="heroWa" href="#" aria-label="Agendar pelo WhatsApp">
+            <svg class="icon-wa" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20.52 11.8a8.71 8.71 0 01-12.2 7.8L4 20l.39-4.3A8.71 8.71 0 1116.44 3.6a8.68 8.68 0 014.08 8.2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Plano mensal
-          </div>
-          <div class="plan-price">
-            <strong>Mensal</strong>
-            <span>para manter seu visual em dia</span>
-          </div>
-          <p>Recomendado para quem faz manutenção frequente e quer praticidade.</p>
-          <ul class="list">
-            <li><span class="check" aria-hidden="true">✓</span> Atendimento recorrente</li>
-            <li><span class="check" aria-hidden="true">✓</span> Prioridade para reagendar</li>
-          </ul>
-
-          <div class="service-actions">
-            <a class="btn btn-primary btn-block"
-               href="#"
-               data-wa-plan="Plano mensal"
-               onclick="return false;">
-              Quero este plano
-            </a>
-          </div>
-        </article>
-
-        <article class="card plan-card" aria-label="Plano Trimestral">
-          <div class="plan-badge">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 12l4 4L20 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2" opacity=".35"/>
-            </svg>
-            Plano trimestral
-          </div>
-          <div class="plan-price">
-            <strong>Trimestral</strong>
-            <span>equilíbrio perfeito</span>
-          </div>
-          <p>Para quem prefere ritmo constante sem lotar a agenda.</p>
-          <ul class="list">
-            <li><span class="check" aria-hidden="true">✓</span> Intervalo ideal</li>
-            <li><span class="check" aria-hidden="true">✓</span> Visual sempre alinhado</li>
-          </ul>
-
-          <div class="service-actions">
-            <a class="btn btn-primary btn-block"
-               href="#"
-               data-wa-plan="Plano trimestral"
-               onclick="return false;">
-              Quero este plano
-            </a>
-          </div>
-        </article>
-
-        <article class="card plan-card" aria-label="Plano Premium recorrente">
-          <div class="plan-badge">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M8.5 13.5h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".7"/>
-            </svg>
-            Premium recorrente
-          </div>
-          <div class="plan-price">
-            <strong>Premium</strong>
-            <span>prioridade + consistência</span>
-          </div>
-          <p>Para quem quer sempre impecável e gosta de ser lembrado sem esforço.</p>
-          <ul class="list">
-            <li><span class="check" aria-hidden="true">✓</span> Prioridade na agenda</li>
-            <li><span class="check" aria-hidden="true">✓</span> Manutenção com padrão</li>
-          </ul>
-
-          <div class="service-actions">
-            <a class="btn btn-primary btn-block"
-               href="#"
-               data-wa-plan="Plano Premium recorrente"
-               onclick="return false;">
-              Quero este plano
-            </a>
-          </div>
-        </article>
-      </div>
-
-      <div class="helper" style="margin-top:12px;">
-        *Planos com detalhes ajustados no WhatsApp para cada barbearia (serviços incluídos, frequência e preferências).
+            Agendar no WhatsApp
+          </a>
+        </div>
+        <p class="hero-note">Resposta rápida · Ambiente confortável · Acabamento caprichado</p>
       </div>
     </div>
-  </section>
 
-  <section class="gallery" id="galeria" aria-labelledby="galeria-title">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <div class="kicker">Galeria</div>
-          <h2 id="galeria-title">Um resultado com cara de premium.</h2>
-          <p class="section-desc">
-            Visual elegante e ambiente bem cuidado — mesmo sem fotos reais, a proposta já passa confiança.
-          </p>
+    <section id="beneficios" aria-labelledby="benef-title">
+      <div class="container">
+        <h2 id="benef-title" class="section-title">Por que vir aqui</h2>
+        <p class="section-intro">Benefícios claros. Nada de texto longo.</p>
+        <div class="benefits-grid">
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">⚡</div>
+            <div>
+              <h3>Rápido e organizado</h3>
+              <p>Você agenda no WhatsApp e chega no horário certo.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">✓</div>
+            <div>
+              <h3>Profissionais de confiança</h3>
+              <p>Corte e barba com técnica e atenção aos detalhes.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">☕</div>
+            <div>
+              <h3>Ambiente premium</h3>
+              <p>Espaço limpo, confortável e sem pressa.</p>
+            </div>
+          </article>
+          <article class="benefit">
+            <div class="benefit-icon" aria-hidden="true">💬</div>
+            <div>
+              <h3>Agendamento fácil</h3>
+              <p>Um toque no botão. A conversa segue no WhatsApp.</p>
+            </div>
+          </article>
         </div>
       </div>
+    </section>
 
-      <div class="gallery-grid">
-        <div class="shot" data-variant="1">
-          <div class="shot-inner">
-            <div class="shot-tag">Corte na medida</div>
-            <div class="shot-mark">
-              <strong>Textura</strong>
-              <span>Finalização que valoriza seu estilo.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shot" data-variant="2">
-          <div class="shot-inner">
-            <div class="shot-tag">Barba alinhada</div>
-            <div class="shot-mark">
-              <strong>Detalhe</strong>
-              <span>Acabamento para durar mais tempo.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shot" data-variant="3">
-          <div class="shot-inner">
-            <div class="shot-tag">Ambiente premium</div>
-            <div class="shot-mark">
-              <strong>Conforto</strong>
-              <span>Atendimento tranquilo e organizado.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shot" data-variant="4">
-          <div class="shot-inner">
-            <div class="shot-tag">Toalha quente</div>
-            <div class="shot-mark">
-              <strong>Ritual</strong>
-              <span>Preparação antes do acabamento.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shot" data-variant="2">
-          <div class="shot-inner">
-            <div class="shot-tag">Combo completo</div>
-            <div class="shot-mark">
-              <strong>Harmonia</strong>
-              <span>Cabelo e barba no mesmo padrão.</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shot" data-variant="1">
-          <div class="shot-inner">
-            <div class="shot-tag">Pronto para sair</div>
-            <div class="shot-mark">
-              <strong>Confiança</strong>
-              <span>Você sai com o visual ajustado.</span>
-            </div>
-          </div>
-        </div>
+    <div class="cta-strip">
+      <div class="container cta-strip-inner">
+        <p>
+          Quer um horário hoje?
+          <span>Chame agora e finalize em poucas mensagens.</span>
+        </p>
+        <a class="btn btn-wa" id="stripWa" href="#">WhatsApp</a>
       </div>
     </div>
-  </section>
 
-  <section class="final-cta" id="agendar" aria-labelledby="agendar-title">
-    <div class="container">
-      <div class="cta-panel">
-        <div class="cta-panel-grid">
-          <div>
-            <div class="kicker">Agendamento no WhatsApp</div>
-            <h3 id="agendar-title">Chame agora e garanta seu horário.</h3>
-            <p>
-              Sem enrolação: diga o que você quer, e nós confirmamos a melhor opção. Se preferir, a gente te orienta com base no seu objetivo.
-            </p>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px;">
-              <span class="service-chip">Corte</span>
-              <span class="service-chip">Barba</span>
-              <span class="service-chip">Combo</span>
-              <span class="service-chip">Plano mensal</span>
+    <section id="servicos" aria-labelledby="serv-title">
+      <div class="container">
+        <h2 id="serv-title" class="section-title">Serviços</h2>
+        <p class="section-intro">Toque para agendar o que você precisa.</p>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-head">
+              <h3>Corte masculino</h3>
+              <span class="service-meta">~35 min</span>
             </div>
-          </div>
+            <ul>
+              <li>Ajuste no seu estilo</li>
+              <li>Acabamento limpo</li>
+            </ul>
+            <a class="btn btn-wa btn-block wa-service" href="#" data-service="Corte masculino">Agendar corte</a>
+          </article>
+          <article class="service-card">
+            <div class="service-head">
+              <h3>Barba</h3>
+              <span class="service-meta">~30 min</span>
+            </div>
+            <ul>
+              <li>Alinhamento e modelagem</li>
+              <li>Finalização que dura</li>
+            </ul>
+            <a class="btn btn-wa btn-block wa-service" href="#" data-service="Barba">Agendar barba</a>
+          </article>
+          <article class="service-card">
+            <div class="service-head">
+              <h3>Combo corte + barba</h3>
+              <span class="service-meta">~50 min</span>
+            </div>
+            <ul>
+              <li>Visual completo</li>
+              <li>Melhor custo-benefício</li>
+            </ul>
+            <a class="btn btn-wa btn-block wa-service" href="#" data-service="Combo corte + barba">Agendar combo</a>
+          </article>
+          <article class="service-card">
+            <div class="service-head">
+              <h3>Grooming completo</h3>
+              <span class="service-meta">~60 min</span>
+            </div>
+            <ul>
+              <li>Tudo em uma sessão</li>
+              <li>Para quem quer o máximo</li>
+            </ul>
+            <a class="btn btn-wa btn-block wa-service" href="#" data-service="Grooming completo">Agendar grooming</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-          <form class="form" id="bookingForm">
-            <div class="form-row">
-              <div class="field name">
-                <label for="clientName">Seu nome (opcional)</label>
-                <input id="clientName" class="input" type="text" inputmode="text" placeholder="Ex: Bruno" autocomplete="name" />
-              </div>
+    <section id="diferenciais" aria-labelledby="why-title">
+      <div class="container">
+        <h2 id="why-title" class="section-title">O que você leva pra casa</h2>
+        <p class="section-intro">Três motivos diretos. É só isso.</p>
+        <div class="why-wrap">
+          <ul class="why-list">
+            <li>
+              <span class="check" aria-hidden="true">✓</span>
+              <span><strong>Resultado alinhado</strong> — cabelo e barba no mesmo padrão.</span>
+            </li>
+            <li>
+              <span class="check" aria-hidden="true">✓</span>
+              <span><strong>Confiança</strong> — atendimento sério, sem surpresa.</span>
+            </li>
+            <li>
+              <span class="check" aria-hidden="true">✓</span>
+              <span><strong>Praticidade</strong> — tudo resolve pelo WhatsApp.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-              <div class="field service">
-                <label for="serviceSelect">O que você quer fazer?</label>
-                <select id="serviceSelect" aria-label="Selecionar serviço">
-                  <option value="Corte Masculino Premium">Corte Masculino Premium</option>
-                  <option value="Barba Premium">Barba Premium</option>
-                  <option value="Grooming Completo">Grooming Completo</option>
-                  <option value="Combo: Corte + Barba">Combo: Corte + Barba</option>
-                  <option value="Plano mensal">Plano mensal</option>
-                  <option value="Plano trimestral">Plano trimestral</option>
-                  <option value="Plano Premium recorrente">Plano Premium recorrente</option>
+    <section class="final" id="agendar" aria-labelledby="final-title">
+      <div class="container">
+        <div class="final-card">
+          <h2 id="final-title">Pronto para agendar?</h2>
+          <p>Escolha o serviço, confirme e abra o WhatsApp com a mensagem pronta.</p>
+          <form id="bookingForm" novalidate>
+            <div class="form-stack">
+              <div>
+                <label for="serviceSelect">Serviço</label>
+                <select id="serviceSelect" name="service">
+                  <option value="Corte masculino">Corte masculino</option>
+                  <option value="Barba">Barba</option>
+                  <option value="Combo corte + barba">Combo corte + barba</option>
+                  <option value="Grooming completo">Grooming completo</option>
                 </select>
               </div>
-
-              <div class="field sub">
-                <label class="sr-only" for="preferredTime">Preferência de horário</label>
-                <select id="preferredTime" aria-label="Preferência de horário">
+              <div>
+                <label for="preferredTime">Quando prefere?</label>
+                <select id="preferredTime" name="time">
                   <option value="O mais rápido possível">O mais rápido possível</option>
-                  <option value="Durante a tarde">Durante a tarde</option>
+                  <option value="De manhã">De manhã</option>
+                  <option value="À tarde">À tarde</option>
                   <option value="À noite">À noite</option>
-                  <option value="Qualquer horário">Qualquer horário</option>
                 </select>
               </div>
+              <div>
+                <label for="clientName">Seu nome <span class="sr-only">(opcional)</span></label>
+                <input id="clientName" name="name" type="text" autocomplete="name" placeholder="Opcional" />
+              </div>
             </div>
-
-            <button class="btn btn-primary btn-block" type="submit" style="margin-top:12px;">
-              <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M20.5 11.8a8.7 8.7 0 0 1-12.2 7.8L4 20l.4-4.3A8.7 8.7 0 1 1 20.5 11.8Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <button type="submit" class="btn btn-wa btn-block">
+              <svg class="icon-wa" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20.52 11.8a8.71 8.71 0 01-12.2 7.8L4 20l.39-4.3A8.71 8.71 0 1116.44 3.6a8.68 8.68 0 014.08 8.2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              Enviar para o WhatsApp
+              Ir para o WhatsApp
             </button>
-
-            <div class="helper">
-              Ao enviar, você vai abrir uma conversa no WhatsApp com a mensagem pronta para agilizar seu atendimento.
-            </div>
           </form>
+          <p class="form-hint">Funciona melhor no celular: abre o app com a mensagem já escrita.</p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <footer>
     <div class="container">
-      <div class="footer-inner">
-        <p>
-          Barbearia Premium. Corte, barba e grooming com padrão premium e agendamento rápido.
-        </p>
-        <div class="footer-links" aria-label="Links rápidos">
-          <a href="#beneficios">Benefícios</a>
-          <a href="#servicos">Serviços</a>
-          <a href="#planos">Planos</a>
-          <a href="#galeria">Galeria</a>
-          <a href="#agendar">Agendar</a>
-        </div>
-      </div>
+      <p>Barbearia Premium · Demo para portfólio · Ajuste o número do WhatsApp no código.</p>
     </div>
   </footer>
 
-  <a class="wa-float" href="#" id="waFloat" aria-label="Chamar no WhatsApp">
-    <span class="wa-label">Chamar no WhatsApp</span>
-    <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M20.5 11.8a8.7 8.7 0 0 1-12.2 7.8L4 20l.4-4.3A8.7 8.7 0 1 1 20.5 11.8Z" stroke="rgba(37,211,102,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M9.3 8.8c.3-.5.6-.5.9-.5.3 0 .6 0 .8.6.2.5.7 1.7.8 1.8.1.2.1.5 0 .7-.1.2-.2.3-.3.4-.1.1-.2.2-.1.4.1.2.4.8.9 1.3.6.6 1.2.9 1.4 1 .2.1.3.1.4 0 .1-.1.4-.4.6-.5.2-.1.4-.1.6 0 .2.1 1.4.7 1.6.8.2.1.4.2.5.3.1.1.1.6 0 1-.1.4-.5.8-1 .9-0.5.1-1.1.2-2.3-.3-1.2-.5-2.6-1.8-3.6-3.1-1-1.3-1.6-2.8-1.6-3.7 0-.9.5-1.6.7-1.8Z" fill="rgba(233,237,246,.82)"/>
+  <a class="wa-float" id="waFloat" href="#" aria-label="Abrir WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20.52 11.8a8.71 8.71 0 01-12.2 7.8L4 20l.39-4.3A8.71 8.71 0 1116.44 3.6a8.68 8.68 0 014.08 8.2z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9.1 8.85c.27-.45.56-.48.87-.48.3 0 .6 0 .82.58.18.48.66 1.65.78 1.82.12.18.12.48 0 .66-.12.18-.24.3-.36.42-.1.12-.2.24-.1.42.1.18.42.78.88 1.28.54.55 1.08.82 1.3.94.22.12.32.12.42 0 .1-.1.38-.38.58-.52.2-.12.38-.12.58 0 .2.12 1.38.67 1.62.79.24.12.42.22.52.34.1.12.1.66 0 1.02-.1.36-.48.78-1.02.9-.54.12-1.14.22-2.26-.32-1.12-.54-2.46-1.8-3.42-3.12-.96-1.32-1.56-2.82-1.56-3.78 0-.96.5-1.68.72-1.92z" fill="#fff"/>
     </svg>
   </a>
 
   <script>
-    const WHATSAPP_NUMBER = "5500000000000";
+    (function () {
+      const WHATSAPP_NUMBER = "5500000000000";
+      const brandLine = "Barbearia Premium";
 
-    const brandLine = "Barbearia Premium";
+      function buildMessage(service, preferredTime, clientName) {
+        const svc = service || "um horário";
+        const when = preferredTime || "o mais rápido possível";
+        const name = (clientName || "").trim();
+        const greet = name ? "Olá! Sou " + name + ". " : "Olá! ";
+        return (
+          greet +
+          "Quero agendar " +
+          svc +
+          " na " +
+          brandLine +
+          ". Prefiro " +
+          when +
+          ". Qual horário você tem?"
+        );
+      }
 
-    const $ = (sel) => document.querySelector(sel);
+      function waUrl(service, preferredTime, clientName) {
+        const text = buildMessage(service, preferredTime, clientName);
+        return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
+      }
 
-    function waLink({ service, plan, preferredTime, clientName }) {
-      const interest =
-        service ? service :
-        plan ? `Plano: ${plan}` :
-        "um atendimento";
+      function go(service) {
+        const sel = document.getElementById("serviceSelect");
+        const time = document.getElementById("preferredTime");
+        const name = document.getElementById("clientName");
+        const s = service != null ? service : sel ? sel.value : null;
+        const t = time ? time.value : null;
+        const n = name ? name.value : "";
+        window.location.href = waUrl(s, t, n);
+      }
 
-      const prefix = clientName && clientName.trim()
-        ? `Olá! Sou ${clientName.trim()}. `
-        : "Olá! ";
-
-      const msg =
-        `${prefix}Quero agendar ${interest} na ${brandLine}. ` +
-        `Preferência: ${preferredTime || "O mais rápido possível"}. ` +
-        `Qual o melhor horário?`;
-
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-      return url;
-    }
-
-    function openWhatsApp(url) {
-      window.location.href = url;
-    }
-
-    function attachServiceButtons() {
-      document.querySelectorAll("[data-wa-service], [data-wa-plan]").forEach((el) => {
-        el.addEventListener("click", (e) => {
+      function bindWa(el, service) {
+        if (!el) return;
+        el.setAttribute("href", waUrl(service, null, ""));
+        el.addEventListener("click", function (e) {
           e.preventDefault();
+          go(service);
+        });
+      }
 
-          const service = el.getAttribute("data-wa-service");
-          const plan = el.getAttribute("data-wa-plan");
-          const preferredTime = $("select#preferredTime")?.value || "O mais rápido possível";
-          const clientName = $("input#clientName")?.value || "";
-
-          openWhatsApp(waLink({ service, plan, preferredTime, clientName }));
+      document.querySelectorAll(".wa-service").forEach(function (a) {
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          go(a.getAttribute("data-service"));
         });
       });
-    }
 
-    function initHeroButtons() {
-      const heroBtn = $("#heroWhatsAppBtn");
-      const waFloat = $("#waFloat");
+      var form = document.getElementById("bookingForm");
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          go(null);
+        });
+      }
 
-      const preferredTime = $("select#preferredTime")?.value || "O mais rápido possível";
-      const clientName = $("input#clientName")?.value || "";
-
-      const url = waLink({ service: null, plan: null, preferredTime, clientName });
-
-      heroBtn.setAttribute("href", url);
-      waFloat.setAttribute("href", url);
-
-      heroBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        openWhatsApp(url);
-      });
-
-      waFloat.addEventListener("click", (e) => {
-        e.preventDefault();
-        openWhatsApp(url);
-      });
-    }
-
-    function initForm() {
-      const form = $("#bookingForm");
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const clientName = $("#clientName").value;
-        const service = $("#serviceSelect").value;
-        const preferredTime = $("#preferredTime").value;
-
-        const isPlan =
-          service.includes("Plano mensal") ||
-          service.includes("Plano trimestral") ||
-          service.includes("Plano Premium");
-
-        const plan = isPlan ? service : null;
-        const selectedService = isPlan ? null : service;
-
-        openWhatsApp(waLink({
-          service: selectedService,
-          plan,
-          preferredTime,
-          clientName
-        }));
-      });
-    }
-
-    attachServiceButtons();
-    initHeroButtons();
-    initForm();
+      bindWa(document.getElementById("heroWa"), null);
+      bindWa(document.getElementById("topbarWa"), null);
+      bindWa(document.getElementById("stripWa"), null);
+      bindWa(document.getElementById("waFloat"), null);
+    })();
   </script>
 </body>
 </html>
